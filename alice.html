@@ -35,48 +35,47 @@
     vetor_nota2 = [];
     vetor_nota3 = [];
     vetor_mediaAlunos = [];
-
+    const alunos = []
+    
     let mediaTotal = 0;
 
-    function cadastrar() {
-        let nomeAluno = ipt_nome.value;
-        let nota1 = Number(ipt_nota1.value);
-        let nota2 = Number(ipt_nota2.value);
-        let nota3 = Number(ipt_nota3.value);
+    function cadastro() {
 
-        let erro = '';
+        let nome = ipt_nome.value
+        let nota1 = Number(ipt_n1.value)
+        let nota2 = Number(ipt_n2.value)
+        let nota3 = Number(ipt_n3.value)
+        let error = ''
+        let media = 0
 
-        if (ipt_nome.value == '' || nomeAluno.length < 9) {
-            erro += 'Preencha o campo de nome corretamente!<br>';
-        }
-        if (nota1 < 0 || ipt_nota1.value == '' || nota1 > 10) {
-            erro += 'Preencha o campo da primeira nota corretamente!<br>'
-        }
-        if (nota2 < 0 || ipt_nota2.value == '' || nota2 > 10) {
-            erro += 'Preencha o campo da segunda nota corretamente!<br>'
-        }
-        if (nota3 < 0 || ipt_nota3.value == '' || nota3 > 10) {
-            erro += 'Preencha o campo da terceira nota corretamente!<br>'
-        }
-        if (erro != '') {
-            msg.innerHTML = erro;
+        res.innerHTML = ''
+
+        if (nome == '' || nome.length < 9) error += 'Preencha um nome com ao menos 9 caracteres e um aluno que não esteja cadastrado! <br>'
+        if (nota1 < 0 || nota2 < 0 || nota3 < 0 || nota1 == '' || nota2 == '' || nota3 == '') error += 'As notas devem ser maior do que zero! <br>'
+
+        if (error != '') {
+            res.innerHTML = error
         } else {
-            msg.innerHTML = '';
-            if (vetor_nome.includes(nomeAluno)) {
-                alert('Este aluno já foi cadastrado!')
-                return
-            } else {
-                vetor_nome.push(nomeAluno);
-                vetor_nota1.push(nota1);
-                vetor_nota2.push(nota2);
-                vetor_nota3.push(nota3);
-            var media = (nota1 + nota2 + nota3)/3
+            res.innerHTML = ''
 
-                vetor_mediaAlunos.push(media);
+            media = ((nota1 + nota2 + nota3) / 3).toFixed(1)
 
-                alert('Aluno cadastrado com sucesso!');
-            }
+            alunos.push({
+                nome: nome,
+                notaUm: nota1,
+                notaDois: nota2,
+                notaTres: nota3,
+                mediaAluno: media
+            })
+
+            ipt_nome.value = ''
+            ipt_n1.value = ''
+            ipt_n2.value = ''
+            ipt_n3.value = ''
+
+            alert('Cadastro realizado com sucesso!')
         }
+
     }
 
     function listar() {
