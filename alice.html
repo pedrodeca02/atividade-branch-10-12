@@ -1,165 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Notas</title>
+    <title>Cadastro de notas da Prof. Alice</title>
 </head>
 
 <body>
-    <h1>Cadastro de notas da Prof. Alice</h1>
-    <hr>
-    Insira o nome do aluno: <br>
-    <input type="text" id="ipt_nome"> <br>
-    Insira a primeira nota: <br>
-    <input type="number" id="ipt_nota1"> <br>
-    Insira a segunda nota: <br>
-    <input type="number" id="ipt_nota2"> <br>
-    Insira a terceira nota: <br>
-    <input type="number" id="ipt_nota3"> <br> <br>
-    <button onclick="cadastrar()">Cadastrar</button>
-    <button onclick="listar()">Listar</button>
-    <button onclick="aluno()">Aluno</button>
-    <button onclick="media()">Média</button>
-    <button onclick="maiorQue()">Notas maior que</button>
-    <br><br>
-    <div id="msg"></div>
+    <h2>Cadastro de Notas</h2>
+    Informe o nome do aluno: <input type="text" id="ipt_nome"> <br><br>
+    Informe a primeira nota: <input type="number" name="" id="ipt_n1"> <br><br>
+    Informe a segunda nota: <input type="number" name="" id="ipt_n2"> <br><br>
+    Informe a terceira nota: <input type="number" name="" id="ipt_n3"> <br><br>
+   <button onclick="lsaluno()">Aluno</button>
+    <div id="res"></div>
 </body>
-
 </html>
 
 <script>
-    vetor_nome = [];
-    vetor_nota1 = [];
-    vetor_nota2 = [];
-    vetor_nota3 = [];
-    vetor_mediaAlunos = [];
+     function lsaluno() {
+        if (alunos.length > 0) {
+            let aluno = prompt('Informe o nome do aluno para obter os registro:')
+            let media = 0
+            let existe = false
 
-    let mediaTotal = 0;
+            for (let i = 0; i < alunos.length; i++) {
+                if (alunos[i].nome == aluno) {
+                    existe = true
+                }
+            }
 
-    function cadastrar() {
-        let nomeAluno = ipt_nome.value;
-        let nota1 = Number(ipt_nota1.value);
-        let nota2 = Number(ipt_nota2.value);
-        let nota3 = Number(ipt_nota3.value);
-
-        let erro = '';
-
-        if (ipt_nome.value == '' || nomeAluno.length < 9) {
-            erro += 'Preencha o campo de nome corretamente!<br>';
-        }
-        if (nota1 < 0 || ipt_nota1.value == '' || nota1 > 10) {
-            erro += 'Preencha o campo da primeira nota corretamente!<br>'
-        }
-        if (nota2 < 0 || ipt_nota2.value == '' || nota2 > 10) {
-            erro += 'Preencha o campo da segunda nota corretamente!<br>'
-        }
-        if (nota3 < 0 || ipt_nota3.value == '' || nota3 > 10) {
-            erro += 'Preencha o campo da terceira nota corretamente!<br>'
-        }
-        if (erro != '') {
-            msg.innerHTML = erro;
-        } else {
-            msg.innerHTML = '';
-            if (vetor_nome.includes(nomeAluno)) {
-                alert('Este aluno já foi cadastrado!')
-                return
+            if (!existe) {
+                alert('Aluno não encontrado no sistema')
             } else {
-                vetor_nome.push(nomeAluno);
-                vetor_nota1.push(nota1);
-                vetor_nota2.push(nota2);
-                vetor_nota3.push(nota3);
-            var media = (nota1 + nota2 + nota3)/3
 
-                vetor_mediaAlunos.push(media);
+                for (i = 0; i < alunos.length; i++) {
+                    if (aluno == alunos[i].nome) {
 
-                alert('Aluno cadastrado com sucesso!');
-            }
-        }
-    }
+                        res.innerHTML = `<br>Aluno: ${alunos[i].nome} – N1: ${alunos[i].notaUm} – N2: ${alunos[i].notaDois} – N3: ${alunos[i].notaTres} Média: ${alunos[i].mediaAluno} – Registro do aluno solicitado  <br>`
 
-    function listar() {
-        let pergunta = prompt('Listar do primeiro ao último aluno(1) ou do último ao primeiro(2)?(digite 1 para a primeira opção, e 2 para a segunda)')
-
-        if (pergunta == 1) {
-            msg.innerHTML = '';
-            for (let index = 0; index < vetor_nome.length; index++) {
-                let media = (vetor_nota1[index] + vetor_nota2[index] + vetor_nota3[index]) / 3;
-                msg.innerHTML += `<br>Aluno: ${vetor_nome[index]} – N1: ${vetor_nota1[index]} – N2: ${vetor_nota2[index]} – N3: ${vetor_nota3[index]} – Média: ${(media).toFixed(1)} – YYYYY  `;
-            }
-        } else {
-            msg.innerHTML = '';
-            for (let index = vetor_nome.length - 1; index >= 0; index--) {
-                let media = (vetor_nota1[index] + vetor_nota2[index] + vetor_nota3[index]) / 3;
-                msg.innerHTML += `<br>Aluno: ${vetor_nome[index]} – N1: ${vetor_nota1[index]} – N2: ${vetor_nota2[index]} – N3: ${vetor_nota3[index]} – Média: ${(media).toFixed(1)} – YYYYY  `;
-            }
-        }
-    }
-
-    function aluno() {
-        let perguntaaluno = prompt('Digite o nome do aluno que quiser saber sobre as notas.')
-        let nomeAluno = ipt_nome.value;
-        msg.innerHTML = '';
-        let valor = 0;
-      
-        if (vetor_nome.indexOf(perguntaaluno) != -1) {
-            valor += vetor_nome.indexOf(perguntaaluno);
-            var media = (vetor_nota1[valor] + vetor_nota2[valor] + vetor_nota3[valor]) / 3;
-            msg.innerHTML = `<br>Aluno: ${vetor_nome[valor]} – N1: ${vetor_nota1[valor]} – N2: ${vetor_nota2[valor]} – N3: ${vetor_nota3[valor]} – Média: ${(media).toFixed(1)} – YYYYY  `;
-
-        } else {
-            alert('Aluno não cadastrado!');
-        }
-    }
-
-    function media() {
-        if (vetor_nome.length > 0) {
-            let resultMedia = prompt('Deseja ver a maior média ou a menor média?')
-            let menorMedia = 10;
-            let maiorMedia = 0;
-            let indexResult = 0;
-
-            while (resultMedia != 'maior' && resultMedia != 'menor' && resultMedia != 'Maior' && resultMedia != 'Menor') {
-                resultMedia = prompt('Deseja ver a maior média ou a menor média?')
-            }
-
-            if (resultMedia == 'Maior' || resultMedia == 'maior') {
-                for (let i = 0; i < vetor_nome.length; i++) {
-                    if (vetor_mediaAlunos[i] > maiorMedia) {
-                        maiorMedia = vetor_mediaAlunos[i]
-                        indexResult = i
+                        break
                     }
                 }
-
-                msg.innerHTML = `<br>Aluno: ${vetor_nome[indexResult]} – N1: ${vetor_nota1[indexResult]} – N2: ${vetor_nota2[indexResult]} – N3: ${vetor_nota3[indexResult]} – Média: ${vetor_mediaAlunos[indexResult].toFixed(1)} – Maior média cadastrada <br>`
-            } else {
-                for (let i = 0; i < vetor_nome.length; i++) {
-                    if (vetor_mediaAlunos[i] < menorMedia) {
-                        menorMedia = vetor_mediaAlunos[i]
-                        indexResult = i
-                    }
-                }
-
-                msg.innerHTML = `<br>Aluno: ${vetor_nome[indexResult]} – N1: ${vetor_nota1[indexResult]} – N2: ${vetor_nota2[indexResult]} – N3: ${vetor_nota3[indexResult]} – Média: ${vetor_mediaAlunos[indexResult].toFixed(1)} – Menor média cadastrada <br>`
             }
         }
     }
-
-     function maiorQue() {
-        msg.innerHTML = ''
-        
-        if (vetor_mediaAlunos.length > 0) {
-            let notaRef = Number(prompt('Informe a nota limite:'))
-
-            for (let i = 0; i < vetor_mediaAlunos.length; i++) {
-                if (vetor_nota1[i] > notaRef || vetor_nota2[i] > notaRef || vetor_nota3[i] > notaRef) {
-                    msg.innerHTML += `<br> Aluno: ${vetor_nome[i]} – N1: ${vetor_nota1[i]} – N2: ${vetor_nota2[i]} – N3: ${vetor_nota3[i]} – Média: ${vetor_mediaAlunos[i].toFixed(1)} – Pelo menos uma nota maior que ${notaRef} <br>`
-                }
-            }
-        }
-    }
-
-
-
 </script>
