@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de notas da Prof. Alice</title>
+</head>
+
+<body>
+    <h2>Cadastro de Notas</h2>
+    Informe o nome do aluno: <input type="text" id="ipt_nome"> <br><br>
+    Informe a primeira nota: <input type="number" name="" id="ipt_n1"> <br><br>
+    Informe a segunda nota: <input type="number" name="" id="ipt_n2"> <br><br>
+    Informe a terceira nota: <input type="number" name="" id="ipt_n3"> <br><br>
+   <button onclick="lsaluno()">Aluno</button>
+    <div id="res"></div>
+</body>
+</html>
+
+<script>
+     function lsaluno() {
+        if (alunos.length > 0) {
+            let aluno = prompt('Informe o nome do aluno para obter os registro:')
+            let media = 0
+            let existe = false
+
+            for (let i = 0; i < alunos.length; i++) {
+                if (alunos[i].nome == aluno) {
+                    existe = true
+                }
+            }
+
+            if (!existe) {
+                alert('Aluno não encontrado no sistema')
+            } else {
+
+                for (i = 0; i < alunos.length; i++) {
+                    if (aluno == alunos[i].nome) {
+
+                        res.innerHTML = `<br>Aluno: ${alunos[i].nome} – N1: ${alunos[i].notaUm} – N2: ${alunos[i].notaDois} – N3: ${alunos[i].notaTres} Média: ${alunos[i].mediaAluno} – Registro do aluno solicitado  <br>`
+
+                        break
+                    }
+                }
+            }
+        }
+    }
+</script>
