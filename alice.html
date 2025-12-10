@@ -78,20 +78,27 @@
 
     }
 
-    function listar() {
-        let pergunta = prompt('Listar do primeiro ao último aluno(1) ou do último ao primeiro(2)?(digite 1 para a primeira opção, e 2 para a segunda)')
+     function list() {
+        if (alunos.length > 0) {
+            let ordem = prompt('Digite 1 para listar do primeiro ao último | Digite 2 para listar do último ao primeiro')
+            let media = 0
 
-        if (pergunta == 1) {
-            msg.innerHTML = '';
-            for (let index = 0; index < vetor_nome.length; index++) {
-                let media = (vetor_nota1[index] + vetor_nota2[index] + vetor_nota3[index]) / 3;
-                msg.innerHTML += `<br>Aluno: ${vetor_nome[index]} – N1: ${vetor_nota1[index]} – N2: ${vetor_nota2[index]} – N3: ${vetor_nota3[index]} – Média: ${(media).toFixed(1)} – YYYYY  `;
+            while (ordem != 1 && ordem != 2) {
+                ordem = prompt('Digite 1 para listar do primeiro ao último | Digite 2 para listar do último ao primeiro')
             }
-        } else {
-            msg.innerHTML = '';
-            for (let index = vetor_nome.length - 1; index >= 0; index--) {
-                let media = (vetor_nota1[index] + vetor_nota2[index] + vetor_nota3[index]) / 3;
-                msg.innerHTML += `<br>Aluno: ${vetor_nome[index]} – N1: ${vetor_nota1[index]} – N2: ${vetor_nota2[index]} – N3: ${vetor_nota3[index]} – Média: ${(media).toFixed(1)} – YYYYY  `;
+
+            if (ordem == 1) {
+                res.innerHTML = ''
+                for (let i = 0; i < alunos.length; i++) {
+
+                    res.innerHTML += `<br> Aluno: ${alunos[i].nome} – N1: ${alunos[i].notaUm} – N2: ${alunos[i].notaDois} – N3: ${alunos[i].notaTres} Média: ${alunos[i].mediaAluno} – Listando do primeiro ao último <br>`
+                }
+            } else {
+                res.innerHTML = ''
+                for (let i = alunos.length - 1; i >= 0; i--) {
+
+                    res.innerHTML += `<br>Aluno: ${alunos[i].nome} – N1: ${alunos[i].notaUm} – N2: ${alunos[i].notaDois} – N3: ${alunos[i].notaTres} Média: ${alunos[i].mediaAluno} – Listando do último ao primeiro <br>`
+                }
             }
         }
     }
