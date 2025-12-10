@@ -20,10 +20,139 @@
 </html>
 
 <script>
+
     function maiorQue() {
         res.innerHTML = ''
 
         if (alunos.length > 0) {
+
+    vetor_nome = [];
+    vetor_nota1 = [];
+    vetor_nota2 = [];
+    vetor_nota3 = [];
+    vetor_mediaAlunos = [];
+    const alunos = []
+    
+    let mediaTotal = 0;
+
+    function cadastro() {
+
+        let nome = ipt_nome.value
+        let nota1 = Number(ipt_n1.value)
+        let nota2 = Number(ipt_n2.value)
+        let nota3 = Number(ipt_n3.value)
+        let error = ''
+        let media = 0
+
+        res.innerHTML = ''
+
+        if (nome == '' || nome.length < 9) error += 'Preencha um nome com ao menos 9 caracteres e um aluno que não esteja cadastrado! <br>'
+        if (nota1 < 0 || nota2 < 0 || nota3 < 0 || nota1 == '' || nota2 == '' || nota3 == '') error += 'As notas devem ser maior do que zero! <br>'
+
+        if (error != '') {
+            res.innerHTML = error
+        } else {
+            res.innerHTML = ''
+
+            media = ((nota1 + nota2 + nota3) / 3).toFixed(1)
+
+            alunos.push({
+                nome: nome,
+                notaUm: nota1,
+                notaDois: nota2,
+                notaTres: nota3,
+                mediaAluno: media
+            })
+
+            ipt_nome.value = ''
+            ipt_n1.value = ''
+            ipt_n2.value = ''
+            ipt_n3.value = ''
+
+            alert('Cadastro realizado com sucesso!')
+        }
+
+    }
+
+     function list() {
+        if (alunos.length > 0) {
+            let ordem = prompt('Digite 1 para listar do primeiro ao último | Digite 2 para listar do último ao primeiro')
+            let media = 0
+
+            while (ordem != 1 && ordem != 2) {
+                ordem = prompt('Digite 1 para listar do primeiro ao último | Digite 2 para listar do último ao primeiro')
+            }
+
+            if (ordem == 1) {
+                res.innerHTML = ''
+                for (let i = 0; i < alunos.length; i++) {
+
+                    res.innerHTML += `<br> Aluno: ${alunos[i].nome} – N1: ${alunos[i].notaUm} – N2: ${alunos[i].notaDois} – N3: ${alunos[i].notaTres} Média: ${alunos[i].mediaAluno} – Listando do primeiro ao último <br>`
+                }
+            } else {
+                res.innerHTML = ''
+                for (let i = alunos.length - 1; i >= 0; i--) {
+
+                    res.innerHTML += `<br>Aluno: ${alunos[i].nome} – N1: ${alunos[i].notaUm} – N2: ${alunos[i].notaDois} – N3: ${alunos[i].notaTres} Média: ${alunos[i].mediaAluno} – Listando do último ao primeiro <br>`
+                }
+            }
+        }
+    }
+
+    function aluno() {
+        let perguntaaluno = prompt('Digite o nome do aluno que quiser saber sobre as notas.')
+        let nomeAluno = ipt_nome.value;
+        msg.innerHTML = '';
+        let valor = 0;
+      
+        if (vetor_nome.indexOf(perguntaaluno) != -1) {
+            valor += vetor_nome.indexOf(perguntaaluno);
+            var media = (vetor_nota1[valor] + vetor_nota2[valor] + vetor_nota3[valor]) / 3;
+            msg.innerHTML = `<br>Aluno: ${vetor_nome[valor]} – N1: ${vetor_nota1[valor]} – N2: ${vetor_nota2[valor]} – N3: ${vetor_nota3[valor]} – Média: ${(media).toFixed(1)} – YYYYY  `;
+
+        } else {
+            alert('Aluno não cadastrado!');
+        }
+    }
+
+    function media() {
+        if (vetor_nome.length > 0) {
+            let resultMedia = prompt('Deseja ver a maior média ou a menor média?')
+            let menorMedia = 10;
+            let maiorMedia = 0;
+            let indexResult = 0;
+
+            while (resultMedia != 'maior' && resultMedia != 'menor' && resultMedia != 'Maior' && resultMedia != 'Menor') {
+                resultMedia = prompt('Deseja ver a maior média ou a menor média?')
+            }
+
+            if (resultMedia == 'Maior' || resultMedia == 'maior') {
+                for (let i = 0; i < vetor_nome.length; i++) {
+                    if (vetor_mediaAlunos[i] > maiorMedia) {
+                        maiorMedia = vetor_mediaAlunos[i]
+                        indexResult = i
+                    }
+                }
+
+                msg.innerHTML = `<br>Aluno: ${vetor_nome[indexResult]} – N1: ${vetor_nota1[indexResult]} – N2: ${vetor_nota2[indexResult]} – N3: ${vetor_nota3[indexResult]} – Média: ${vetor_mediaAlunos[indexResult].toFixed(1)} – Maior média cadastrada <br>`
+            } else {
+                for (let i = 0; i < vetor_nome.length; i++) {
+                    if (vetor_mediaAlunos[i] < menorMedia) {
+                        menorMedia = vetor_mediaAlunos[i]
+                        indexResult = i
+                    }
+                }
+
+                msg.innerHTML = `<br>Aluno: ${vetor_nome[indexResult]} – N1: ${vetor_nota1[indexResult]} – N2: ${vetor_nota2[indexResult]} – N3: ${vetor_nota3[indexResult]} – Média: ${vetor_mediaAlunos[indexResult].toFixed(1)} – Menor média cadastrada <br>`
+            }
+        }
+    }
+
+     function maiorQue() {
+        msg.innerHTML = ''
+        
+        if (vetor_mediaAlunos.length > 0) {
+
             let notaRef = Number(prompt('Informe a nota limite:'))
 
             for (let i = 0; i < alunos.length; i++) {
@@ -33,4 +162,5 @@
             }
         }
     }
+
 </script>
